@@ -1,24 +1,24 @@
 
 import { useEffect, useState } from 'react';
-import { Button, FormControl,InputLabel,Input} from '@mui/material';
+import { FormControl, InputLabel, Input, Button, IconButton } from '@mui/material';
 import './App.css';
 import Message from './Message';
 import db from './firebase';
 import firebase from 'firebase/compat/app'
 import FlipMove from 'react-flip-move';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function App() {
   const [input, setInput] = useState("");
 
-  const [messages, setMessages] = useState([{username: "jay", message: "Hi", }, {username : "qazi", message: "Whats up"}]);
+  const [messages, setMessages] = useState([]);
 
   const [username, setUsername] = useState('');
 
 
-
   useEffect(() => {
     db.collection('messages').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
-      setMessages(snapshot.docs.map(doc => ({id:doc.id, message: doc.data() })))
+      setMessages(snapshot.docs.map(doc => ({ id: doc.id, message: doc.data() })))
     })
   },[])
 
@@ -33,13 +33,13 @@ function App() {
   const sendMessage = (event) => {
     event.preventDefault();
 
-    db.collection('1').add({
+    db.collection('messages').add({
       message: input,
       username: username,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
 
-    setMessages([...messages, {username: username, message:input}]);
+    // setMessages([...messages, {username: username, message:input}]);
     setInput('');
   }
 
@@ -47,19 +47,19 @@ function App() {
     <div className="App">
       <h1>Welcome To the Chat</h1>
       <h2>Wellcome { username}</h2>
-      <form>
-        
-      <FormControl>
+      <form className='appForm'>
+      <FormControl className='appFormControl'>
         <InputLabel >Enter a message</InputLabel>
-          <Input value={input} onChange={event => setInput(event.target.value)} />
-          <Button disabled={!input} variant='contained' color='primary' type='submit' onClick={sendMessage} >Send Message</Button>
-      </FormControl>
-
-      
+          <Input className='appInput' value={input} onChange={event => setInput(event.target.value)} />
+          <Button className='appButton' disabled={!input} variant='contained' color='primary' type='submit' onClick={sendMessage} >Send Message</Button>
+          
+           
+        </FormControl> 
       </form>
+
       <FlipMove>
       {
-          messages.map((message,id ) => (
+          messages.map(({ message, id }) => (
 
       <Message key={id} username={username}  message={message} />
           
