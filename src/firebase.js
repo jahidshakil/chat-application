@@ -4,14 +4,16 @@ import firebase from 'firebase/compat/app';
 
 
 const firebaseApp = firebase.initializeApp({
-    apiKey: "AIzaSyBwwwU0kihtUN0afE3VRSd8sDVXDZPSLps",
-    authDomain: "messenger-clone-d1990.firebaseapp.com",
-    projectId: "messenger-clone-d1990",
-    storageBucket: "messenger-clone-d1990.appspot.com",
-    messagingSenderId: "79066669549",
-    appId: "1:79066669549:web:8deb7501c31d85a6f107e4"
+    apiKey: "AIzaSyCD76_FVsbCY_OTpCGU66IV-Aor-SPehoQ",
+    authDomain: "chat-application-14048.firebaseapp.com",
+    projectId: "chat-application-14048",
+    storageBucket: "chat-application-14048.appspot.com",
+    messagingSenderId: "1016653462507",
+    appId: "1:1016653462507:web:189d68d9756083a5ed77ae",
+    measurementId: "G-30VYLTQKV9"
 });
     
 const db = firebaseApp.firestore();
 
 export default  db ;
+
